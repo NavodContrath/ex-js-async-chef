@@ -30,14 +30,39 @@ async function fetchJson(url) {
 }
 //funzione per il recupero della data di compleanno
 const getChefBirthday = async (id) => {
-    const recipes = await fetchJson(`https://dummyjson.com/recipes/${id}`)
-    const user = await fetchJson(`https://dummyjson.com/users/${recipes.userId}`)
+    let recipes
+    try {
+        recipes = await fetchJson(`https://dummyjson.com/recipes/${id}`)
+
+    } catch (error) {
+        throw new Error(`recipe with id ${id} was not found`)
+    }
+    if (recipes.message) {
+        throw new Error(recipes.message)
+    }
+
+    let user
+    try {
+        user = await fetchJson(`https://dummyjson.com/users/${recipes.userId}`)
+    } catch (error) {
+        throw new Error(`user with recipeUserId ${recipes.userId} was not found`)
+    }
+    if (user.message) {
+        throw new Error(user.message)
+    }
     return user.birthDate
 }
 //funzione anonima per utilizzo
 (async () => {
-    const recipes = await getChefBirthday(1)
-    console.log(recipes)
+    try {
+        const recipes = await getChefBirthday(1)
+        console.log(recipes)
+    } catch (error) {
+        console.error(error)
+    } finally {
+        console.log("fine codice")
+    }
+
 })()
 
 
