@@ -32,7 +32,7 @@ async function fetchJson(url) {
 const getChefBirthday = async (id) => {
     const recipes = await fetchJson(`https://dummyjson.com/recipes/${id}`)
     const user = await fetchJson(`https://dummyjson.com/users/${recipes.userId}`)
-    return { ...recipes, user }
+    return user.birthDate
 }
 //funzione anonima per utilizzo
 (async () => {
