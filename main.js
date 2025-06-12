@@ -28,6 +28,16 @@ async function fetchJson(url) {
     const object = await response.json()
     return object
 }
+//funzione per il recupero della data di compleanno
+const getChefBirthday = async (id) => {
+    const recipes = await fetchJson(`https://dummyjson.com/recipes/${id}`)
+    return recipes
+}
+//funzione anonima per utilizzo
+(async () => {
+    const recipes = await getChefBirthday(1)
+    console.log(recipes)
+})()
 
 
 
