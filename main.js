@@ -20,13 +20,14 @@ getChefBirthday(1)
   .catch(error => console.error("Errore:", error.message));
 Esempio di output atteso
 Data di nascita dello chef: 1990-06-15
-
-🎯 Bonus 1
-Attualmente, se la prima richiesta non trova una ricetta,
-la seconda richiesta potrebbe comunque essere eseguita causando errori a cascata.
-Modifica getChefBirthday(id) per intercettare eventuali errori prima di fare la seconda richiesta.
-🎯 Bonus 2
-Utilizza la libreria dayjs per formattare la data di nascita nel formato giorno/mese/anno.
-Esempio di output atteso con formattazione
-Data di nascita dello chef: 15/06/1990
 */
+
+//funzione generica per il fetching con async/await
+async function fetchJson(url) {
+    const response = await fetch(url)
+    const object = await response.json()
+    return object
+}
+
+
+
