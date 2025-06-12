@@ -31,7 +31,8 @@ async function fetchJson(url) {
 //funzione per il recupero della data di compleanno
 const getChefBirthday = async (id) => {
     const recipes = await fetchJson(`https://dummyjson.com/recipes/${id}`)
-    return recipes
+    const user = await fetchJson(`https://dummyjson.com/users/${recipes.userId}`)
+    return { ...recipes, user }
 }
 //funzione anonima per utilizzo
 (async () => {
